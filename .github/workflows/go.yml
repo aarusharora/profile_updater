@@ -28,13 +28,18 @@ jobs:
 
     - name: Run
       run: go run main.go
+    
+    - name: Get commit message for today
+      id: msg
+      run: echo "::set-output name=msg::Daily build for $(date +'%Y-%m-%d')"
 
-    - name: Publish generated content to GitHub Pages
-      uses: tsunematsu21/actions-publish-gh-pages@v1.0.2
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@v4
       with:
-        dir: output
+        folder: output
         branch: main
-        repo: aarusharora/aarusharora
+        repository-name: aarusharora/aarusharora
         token: ${{ secrets.ACCESS_TOKEN }}
-        name: ${{ secrets.commiter_name }}
-        email: ${{ secrets.commiter_email }}
+        git-config-name: ${{ secrets.commiter_name }}
+        git-config-email: ${{ secrets.commiter_email }}
+        commit-message: "Daily build for ${{ steps.msg.outputs.msg }}"
