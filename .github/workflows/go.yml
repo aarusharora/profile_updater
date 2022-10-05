@@ -25,3 +25,13 @@ jobs:
 
     - name: Test
       run: go test -v ./...
+
+    - name: Publish generated content to GitHub Pages
+      uses: tsunematsu21/actions-publish-gh-pages@v1.0.2
+      with:
+        dir: output
+        branch: main
+        repo: aarusharora/aarusharora
+        token: ${{ secrets.ACCESS_TOKEN }}
+        name: ${{ secrets.commiter_name }}
+        email: ${{ secrets.commiter_email }}
