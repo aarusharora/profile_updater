@@ -26,6 +26,9 @@ jobs:
     - name: Test
       run: go test -v ./...
 
+    - name: Run
+      run: go run main.go
+
     - name: Publish generated content to GitHub Pages
       uses: tsunematsu21/actions-publish-gh-pages@v1.0.2
       with:
