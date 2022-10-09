@@ -7,7 +7,7 @@ on:
   pull_request:
     branches: [ "main" ]
   schedule:
-    - cron: "0 0 * * *" 
+    - cron: "13 0 * * *" 
 
 env:
   API_KEY: ${{ secrets.API_KEY }}
@@ -47,4 +47,4 @@ jobs:
         token: ${{ secrets.ACCESS_TOKEN }}
         git-config-name: ${{ secrets.commiter_name }}
         git-config-email: ${{ secrets.commiter_email }}
-        commit-message: "Daily build for ${{ steps.msg.outputs.msg }}"
+        commit-message: ${{ steps.msg.outputs.msg }}
