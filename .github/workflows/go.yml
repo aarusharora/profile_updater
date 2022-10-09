@@ -26,9 +26,13 @@ jobs:
 
     - name: Test
       run: go test -v ./...
+      with:
+        API_KEY: ${{ secrets.API_KEY }}
 
     - name: Run
       run: go run main.go
+      with:
+        API_KEY: ${{ secrets.API_KEY }}
     
     - name: Get commit message for today
       id: msg
