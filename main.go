@@ -1,11 +1,18 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
 
-func doStuff() string {
-	return "Done"
-}
+	"github.com/aarusharora/profile_updater/src/utils"
+	"github.com/aarusharora/profile_updater/src/weather"
+)
 
 func main() {
-	fmt.Println("Hello world " + doStuff())
+	// get weather for today
+	weatherData := "- " + weather.GetData()
+	fmt.Printf("adding %s to profile.md \n", weatherData)
+	// get quote of the day
+	if utils.AppendToMarkdown("input/profile_markdown.md", "output/README.md", weatherData) {
+		fmt.Println("updated profile.md")
+	}
 }
