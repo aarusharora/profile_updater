@@ -10,7 +10,7 @@ import (
 )
 
 var apiKey string
-var dataUnvailable string = "The weather data is currently not available."
+var dataUnvailable string = "- The weather data is currently not available."
 
 type WeatherDescription struct {
 	Main        string `json:"main"`
@@ -99,7 +99,7 @@ func GetData() string {
 	icon := fmt.Sprintf("![](https://openweathermap.org/img/wn/%s.png)", currentWeather.Weather[0].Icon)
 	// fmt.Print(icon)
 	final_string := fmt.Sprintf(
-		"The weather for %s is %s %s with temperature from %v℃ - %v℃",
+		"- The weather for %s is %s %s with temperature from %v℃ - %v℃",
 		city, currentWeather.Weather[0].Main, icon, currentWeather.Main.TempMin, currentWeather.Main.TempMax)
 	// return result
 	return final_string

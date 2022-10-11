@@ -10,10 +10,10 @@ import (
 
 func main() {
 	// get weather for today
-	weatherData := "- " + weather.GetData() + "\n"
+	weatherData := weather.GetData() + "\n"
 	fmt.Printf("adding %s to profile.md \n", weatherData)
 	// get quote of the day
-	quoteData := "- " + quote.GetData() + "\n"
+	quoteData := quote.GetData() + "\n"
 	fmt.Printf("adding %s to profile.md \n", quoteData)
 	final_string := weatherData + quoteData
 	if utils.AppendToMarkdown("input/profile_markdown.md", "output/README.md", final_string) {
