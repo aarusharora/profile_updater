@@ -31,10 +31,21 @@ func AppendToMarkdown(readFileName, writeFileName, data string) bool {
 	markdownData, err := os.ReadFile(readFileName)
 	if err != nil {
 		fmt.Println(err)
-		panic(err)
+		return err == nil
 	}
-	newString := string(markdownData) + data + "\n"
+	newString := string(markdownData) + data
 	// fmt.Print(newString)
 	err = os.WriteFile(writeFileName, []byte(newString), 0644)
+	if err != nil {
+		fmt.Println(err)
+	}
 	return err == nil
+}
+
+func UnpackStringSlice(s []string, vars ...*string) {
+	for i, str := range s {
+		if i < len(vars) {
+			*vars[i] = str
+		}
+	}
 }

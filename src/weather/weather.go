@@ -2,7 +2,6 @@ package weather
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"os"
 	"strings"
@@ -11,6 +10,7 @@ import (
 )
 
 var apiKey string
+var dataUnvailable string = "The weather data is currently not available."
 
 type WeatherDescription struct {
 	Main        string `json:"main"`
@@ -79,20 +79,21 @@ func GetData() string {
 	// get env variables - city, state, country
 	city_state_country, ok := os.LookupEnv("CITY_STATE_COUNTRY")
 	if !ok {
-		panic(errors.New("CITY_STATE_COUNTRY not set"))
+		fmt.Println("CITY_STATE_COUNTRY not set")
+		return dataUnvailable
 	}
-	elements := strings.Split(city_state_country, ",")
-	city, state, country := elements[0], elements[1], elements[2]
+	var city, state, country string
+	utils.UnpackStringSlice(strings.Split(city_state_country, ","), &city, &state, &country)
 	// make request
 	location, err := GetLatLong(city, state, country)
 	if err != nil {
 		fmt.Println(err)
-		panic(errors.New("some error in getting latitude and longitude"))
+		return dataUnvailable
 	}
 	currentWeather, err := GetWeatherData(location)
 	if err != nil {
 		fmt.Println(err)
-		panic(errors.New("some error in getting weather data"))
+		return dataUnvailable
 	}
 	// process data
 	icon := fmt.Sprintf("![](https://openweathermap.org/img/wn/%s.png)", currentWeather.Weather[0].Icon)
@@ -108,7 +109,8 @@ func init() {
 	var ok bool
 	// fmt.Println(os.Environ())
 	if apiKey, ok = os.LookupEnv("API_KEY"); !ok {
-		panic(errors.New("API_KEY not set"))
+		fmt.Println("API_KEY not set")
+		apiKey = ""
 	}
 	// fmt.Printf("got %s api key\n", apiKey)
 }

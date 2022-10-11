@@ -2,6 +2,7 @@ package weather
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 )
 
@@ -26,12 +27,18 @@ func TestGetWeatherData(t *testing.T) {
 		Longitude: 72.878176,
 	}
 	got, err := GetWeatherData(mumbai)
-	fmt.Println(got.Weather[0])
 	if err != nil {
 		fmt.Println(err)
+		t.Errorf("got %v", got)
+	} else {
+		fmt.Println(got.Weather[0])
 	}
 }
 
-// func TestGetData(t *testing.T) {
-// 	fmt.Println(GetData())
-// }
+func TestGetData(t *testing.T) {
+	got := GetData()
+	fmt.Println(got)
+	if !strings.Contains(got, "weather") {
+		t.Error("string does not contain weather")
+	}
+}
