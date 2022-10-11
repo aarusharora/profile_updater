@@ -34,8 +34,8 @@ func GetData() string {
 		fmt.Println(err)
 		return dataUnavailable
 	}
-	final_string := fmt.Sprintf(`> Quote of the day:  
-	&emsp;"%s"  
-	&emsp;&emsp;- %s`, quote_of_the_day.Quote, quote_of_the_day.Author)
+	final_string := fmt.Sprintf(`- Quote of the day:  
+	> "%s"  
+	> &emsp;&emsp;&emsp;&emsp;- %s`, quote_of_the_day.Quote, quote_of_the_day.Author)
 	return final_string
 }
